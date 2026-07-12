@@ -1,0 +1,1284 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Theraverse — Balance. Heal. Thrive.</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,500&family=Work+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#1B2E2B;         /* deep forest-indigo ink */
+    --night:#16241F;       /* darker panel bg */
+    --sand:#F4EEE1;        /* warm paper bg */
+    --sand-soft:#EDE4D0;
+    --marigold:#C98A2E;    /* warm ochre accent */
+    --marigold-soft:#E7B966;
+    --teal:#2F5D53;        /* grounded teal */
+    --teal-soft:#4E7E72;
+    --line: rgba(27,46,43,0.14);
+    --white:#FFFDF8;
+    --radius: 18px;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--sand);
+    color:var(--ink);
+    font-family:'Work Sans', sans-serif;
+    -webkit-font-smoothing:antialiased;
+  }
+  h1,h2,h3,.display{
+    font-family:'Fraunces', serif;
+    font-weight:600;
+    letter-spacing:-0.01em;
+    line-height:1.05;
+    margin:0;
+  }
+  .eyebrow{
+    font-family:'Work Sans',sans-serif;
+    text-transform:uppercase;
+    letter-spacing:0.16em;
+    font-size:0.72rem;
+    font-weight:600;
+    color:var(--teal);
+  }
+  a{color:inherit;}
+  img{max-width:100%;}
+  .wrap{max-width:1180px; margin:0 auto; padding:0 28px;}
+  button{font-family:inherit; cursor:pointer;}
+
+  /* ---------- NAV ---------- */
+  header{
+    position:sticky; top:0; z-index:50;
+    background:rgba(244,238,225,0.88);
+    backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--line);
+  }
+  .nav{
+    display:flex; align-items:center; justify-content:space-between;
+    padding:16px 28px; max-width:1180px; margin:0 auto;
+  }
+  .logo{
+    display:flex; align-items:center; gap:10px;
+    font-family:'Fraunces',serif; font-weight:600; font-size:1.35rem;
+  }
+  .logo-mark{
+    width:34px; height:34px; border-radius:50%;
+    background:conic-gradient(from 200deg, var(--teal), var(--marigold), var(--teal));
+    flex:none;
+  }
+  .nav-links{display:flex; gap:30px; list-style:none; margin:0; padding:0; font-size:0.95rem; font-weight:500;}
+  .nav-links a{text-decoration:none; opacity:0.82; transition:opacity .2s;}
+  .nav-links a:hover{opacity:1;}
+  .nav-cta{display:flex; gap:12px; align-items:center;}
+  .menu-toggle{display:none; background:none; border:none; font-size:1.6rem; color:var(--ink);}
+
+  .btn{
+    display:inline-flex; align-items:center; justify-content:center; gap:8px;
+    padding:12px 22px; border-radius:999px; border:1px solid transparent;
+    font-weight:600; font-size:0.92rem; text-decoration:none;
+    transition:transform .18s ease, box-shadow .18s ease, background .18s ease;
+  }
+  .btn-primary{background:var(--ink); color:var(--white);}
+  .btn-primary:hover{transform:translateY(-2px); box-shadow:0 10px 24px rgba(27,46,43,0.25);}
+  .btn-outline{border-color:var(--ink); color:var(--ink); background:transparent;}
+  .btn-outline:hover{background:var(--ink); color:var(--white);}
+  .btn-gold{background:var(--marigold); color:var(--white);}
+  .btn-gold:hover{transform:translateY(-2px); box-shadow:0 10px 24px rgba(201,138,46,0.35);}
+  .btn-ghost{background:transparent; color:var(--ink); border-color:var(--line);}
+  .btn-ghost:hover{border-color:var(--ink);}
+  .btn:disabled{opacity:0.55; cursor:not-allowed; transform:none !important; box-shadow:none !important;}
+  .btn-sm{padding:9px 16px; font-size:0.82rem;}
+  .btn-full{width:100%;}
+
+  /* ---------- HERO ---------- */
+  .hero{padding:88px 0 60px; position:relative; overflow:hidden;}
+  .hero-grid{display:grid; grid-template-columns:1.1fr 0.9fr; gap:60px; align-items:center;}
+  .hero-eyebrow{margin-bottom:18px;}
+  .hero h1{font-size:clamp(2.6rem, 5vw, 4.2rem);}
+  .hero h1 em{font-style:italic; color:var(--teal);}
+  .hero p.lead{margin-top:22px; font-size:1.15rem; line-height:1.6; max-width:520px; color:#3a4744;}
+  .hero-cta{display:flex; gap:14px; margin-top:34px; flex-wrap:wrap;}
+  .hero-stats{display:flex; gap:34px; margin-top:46px; flex-wrap:wrap;}
+  .hero-stats div{border-left:2px solid var(--marigold); padding-left:14px;}
+  .hero-stats .num{font-family:'Fraunces',serif; font-size:1.8rem; font-weight:600;}
+  .hero-stats .lbl{font-size:0.8rem; opacity:0.7;}
+
+  /* Breathing circle signature element */
+  .breathe-card{
+    background:var(--night); border-radius:28px; padding:38px;
+    display:flex; flex-direction:column; align-items:center; gap:18px;
+    color:var(--white); position:relative; overflow:hidden;
+  }
+  .breathe-card::before{
+    content:""; position:absolute; inset:0;
+    background:radial-gradient(circle at 30% 20%, rgba(78,126,114,0.35), transparent 60%);
+  }
+  .breathe-title{font-family:'Fraunces',serif; font-size:1.15rem; position:relative; z-index:1;}
+  .breathe-stage{
+    width:220px; height:220px; border-radius:50%;
+    display:flex; align-items:center; justify-content:center;
+    position:relative; z-index:1;
+  }
+  .breathe-ring{
+    position:absolute; inset:0; border-radius:50%;
+    border:1px solid rgba(231,185,102,0.35);
+  }
+  .breathe-ring.r2{inset:18px;}
+  .breathe-ring.r3{inset:36px;}
+  .breathe-orb{
+    width:120px; height:120px; border-radius:50%;
+    background:radial-gradient(circle at 35% 30%, var(--marigold-soft), var(--marigold) 60%, var(--teal) 130%);
+    transition:transform 4s ease-in-out, box-shadow 4s ease-in-out;
+    box-shadow:0 0 40px rgba(201,138,46,0.35);
+    display:flex; align-items:center; justify-content:center;
+    font-family:'Fraunces',serif; font-size:1rem; font-weight:500; color:var(--night);
+    text-align:center; padding:10px;
+  }
+  .breathe-orb.inhale{transform:scale(1.5); box-shadow:0 0 70px rgba(201,138,46,0.55);}
+  .breathe-orb.exhale{transform:scale(1); box-shadow:0 0 30px rgba(201,138,46,0.25);}
+  .breathe-controls{display:flex; gap:10px; position:relative; z-index:1;}
+  .breathe-note{font-size:0.82rem; opacity:0.75; text-align:center; position:relative; z-index:1;}
+
+  /* ---------- SECTION SHARED ---------- */
+  section{padding:90px 0;}
+  .section-head{max-width:640px; margin-bottom:52px;}
+  .section-head h2{font-size:clamp(2rem,3.4vw,2.8rem); margin-top:14px;}
+  .section-head p{margin-top:16px; font-size:1.05rem; color:#3a4744; line-height:1.6;}
+  .band{background:var(--white); border-top:1px solid var(--line); border-bottom:1px solid var(--line);}
+  .band-dark{background:var(--night); color:var(--white);}
+  .band-dark .eyebrow{color:var(--marigold-soft);}
+
+  /* Mission / Vision */
+  .mv-grid{display:grid; grid-template-columns:1fr 1fr; gap:28px;}
+  .mv-card{
+    background:var(--sand-soft); border-radius:var(--radius); padding:36px;
+    border:1px solid var(--line);
+  }
+  .mv-card h3{font-size:1.5rem; margin-bottom:14px;}
+  .mv-card p{line-height:1.65; color:#3a4744;}
+  .mv-card ul{margin:14px 0 0; padding-left:20px; line-height:1.7; color:#3a4744;}
+
+  /* Self-heal tools */
+  .tool-tabs{display:flex; gap:10px; flex-wrap:wrap; margin-bottom:36px;}
+  .tab-btn{
+    padding:10px 18px; border-radius:999px; border:1px solid var(--line);
+    background:var(--white); font-weight:600; font-size:0.88rem; color:var(--ink);
+    transition:all .2s;
+  }
+  .tab-btn.active{background:var(--ink); color:var(--white); border-color:var(--ink);}
+  .tool-panels{position:relative;}
+  .tool-panel{display:none;}
+  .tool-panel.active{display:grid; grid-template-columns:1fr 1fr; gap:40px; align-items:center;}
+  .tool-copy .eyebrow{margin-bottom:10px;}
+  .tool-copy h3{font-size:1.7rem; margin-bottom:14px;}
+  .tool-copy p{color:#3a4744; line-height:1.65; margin-bottom:22px;}
+  .tool-visual{
+    background:var(--sand-soft); border-radius:var(--radius); padding:30px;
+    border:1px solid var(--line); min-height:260px;
+    display:flex; flex-direction:column; align-items:center; justify-content:center; gap:16px;
+  }
+
+  /* meditation timer */
+  .timer-display{font-family:'Fraunces',serif; font-size:3rem; font-weight:600;}
+  .timer-select{display:flex; gap:8px;}
+  .chip{padding:7px 14px; border-radius:999px; border:1px solid var(--line); background:var(--white); font-size:0.82rem; font-weight:600;}
+  .chip.active{background:var(--marigold); color:white; border-color:var(--marigold);}
+
+  /* journaling */
+  textarea.journal{
+    width:100%; min-height:140px; border-radius:14px; border:1px solid var(--line);
+    padding:16px; font-family:'Work Sans',sans-serif; font-size:0.95rem; resize:vertical;
+    background:var(--white);
+  }
+  .journal-status{font-size:0.82rem; color:var(--teal); min-height:1.2em;}
+
+  /* sound */
+  .sound-grid{display:grid; grid-template-columns:1fr 1fr; gap:10px; width:100%;}
+  .sound-btn{
+    padding:14px; border-radius:12px; border:1px solid var(--line); background:var(--white);
+    font-weight:600; font-size:0.85rem; text-align:left;
+  }
+  .sound-btn.playing{background:var(--teal); color:white; border-color:var(--teal);}
+
+  /* mood tracker */
+  .mood-row{display:flex; gap:10px; justify-content:center; flex-wrap:wrap;}
+  .mood-btn{font-size:1.7rem; padding:10px; border-radius:14px; border:1px solid var(--line); background:var(--white);}
+  .mood-btn.selected{background:var(--marigold-soft); border-color:var(--marigold);}
+  .mood-log{font-size:0.85rem; color:#3a4744; text-align:center;}
+
+  /* ---------- KITS ---------- */
+  .kit-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:24px;}
+  .kit-card{
+    background:var(--white); border:1px solid var(--line); border-radius:var(--radius);
+    padding:28px; display:flex; flex-direction:column; gap:14px;
+    transition:transform .2s ease, box-shadow .2s ease;
+  }
+  .kit-card:hover{transform:translateY(-5px); box-shadow:0 18px 40px rgba(27,46,43,0.10);}
+  .kit-tag{font-size:0.72rem; font-weight:700; text-transform:uppercase; letter-spacing:0.08em; color:var(--teal);}
+  .kit-card h3{font-size:1.25rem; line-height:1.25;}
+  .kit-card p{font-size:0.9rem; color:#4b5854; line-height:1.55; flex:1;}
+  .kit-price{display:flex; align-items:baseline; gap:6px; margin-top:6px;}
+  .kit-price .amt{font-family:'Fraunces',serif; font-size:1.7rem; font-weight:600;}
+  .kit-price .was{font-size:0.85rem; text-decoration:line-through; opacity:0.5;}
+  .kit-includes{font-size:0.82rem; color:#3a4744; margin:0; padding-left:18px; line-height:1.6;}
+  .kit-actions{display:flex; gap:10px; margin-top:8px;}
+  .kit-best{position:relative; border:1px solid var(--marigold);}
+  .kit-best::after{
+    content:"Most loved"; position:absolute; top:-12px; right:20px;
+    background:var(--marigold); color:white; font-size:0.7rem; font-weight:700;
+    padding:5px 12px; border-radius:999px;
+  }
+
+  /* subscription strip */
+  .sub-strip{
+    margin-top:56px; background:var(--night); color:var(--white); border-radius:24px;
+    padding:40px; display:flex; align-items:center; justify-content:space-between; gap:24px; flex-wrap:wrap;
+  }
+  .sub-strip h3{font-size:1.6rem; margin-bottom:8px;}
+  .sub-strip p{opacity:0.8; max-width:440px; line-height:1.5;}
+  .sub-price{font-family:'Fraunces',serif; font-size:2.4rem;}
+  .sub-price span{font-size:1rem; opacity:0.7; font-family:'Work Sans',sans-serif;}
+
+  /* ---------- PSYCHOLOGIST MARKETPLACE ---------- */
+  .split{display:grid; grid-template-columns:1fr 1fr; gap:50px; align-items:start;}
+  .upload-card{
+    background:var(--sand-soft); border:1px solid var(--line); border-radius:var(--radius); padding:30px;
+  }
+  .field{margin-bottom:16px;}
+  .field label{display:block; font-size:0.82rem; font-weight:600; margin-bottom:6px;}
+  .field input, .field select, .field textarea{
+    width:100%; padding:11px 14px; border-radius:10px; border:1px solid var(--line);
+    font-family:'Work Sans',sans-serif; font-size:0.92rem; background:var(--white);
+  }
+  .field textarea{min-height:80px; resize:vertical;}
+  .form-msg{font-size:0.85rem; margin-top:10px; min-height:1.2em; font-weight:600;}
+  .form-msg.ok{color:var(--teal);}
+
+  .worksheet-list{display:flex; flex-direction:column; gap:14px;}
+  .worksheet-item{
+    display:flex; align-items:center; justify-content:space-between; gap:14px;
+    background:var(--white); border:1px solid var(--line); border-radius:14px; padding:16px 18px;
+  }
+  .ws-meta strong{display:block; font-size:0.98rem; font-family:'Fraunces',serif;}
+  .ws-meta span{font-size:0.8rem; color:#5a655f;}
+  .ws-buy{display:flex; align-items:center; gap:10px;}
+  .ws-price{font-weight:700; font-family:'Fraunces',serif;}
+
+  /* ---------- FAQ ---------- */
+  .faq-item{border-bottom:1px solid var(--line);}
+  .faq-q{
+    width:100%; text-align:left; background:none; border:none; padding:20px 0;
+    display:flex; justify-content:space-between; align-items:center;
+    font-family:'Fraunces',serif; font-size:1.08rem; color:var(--ink);
+  }
+  .faq-q .plus{transition:transform .25s; font-size:1.3rem; color:var(--marigold);}
+  .faq-item.open .plus{transform:rotate(45deg);}
+  .faq-a{max-height:0; overflow:hidden; transition:max-height .3s ease;}
+  .faq-a p{padding:0 0 20px; color:#3a4744; line-height:1.6; font-size:0.95rem;}
+
+  /* ---------- FOOTER / CTA ---------- */
+  .cta-band{
+    background:linear-gradient(135deg, var(--teal) 0%, var(--night) 100%);
+    color:white; text-align:center; padding:80px 0;
+  }
+  .cta-band h2{font-size:clamp(2rem,4vw,3rem); max-width:700px; margin:0 auto;}
+  .cta-band p{opacity:0.85; margin-top:16px;}
+  .cta-band .hero-cta{justify-content:center; margin-top:30px;}
+
+  footer{background:var(--ink); color:var(--sand); padding:60px 0 26px;}
+  .foot-grid{display:grid; grid-template-columns:1.4fr 1fr 1fr 1fr; gap:36px;}
+  .foot-logo{font-family:'Fraunces',serif; font-size:1.4rem; margin-bottom:12px;}
+  footer p{color:rgba(244,238,225,0.65); font-size:0.9rem; line-height:1.6;}
+  footer h4{font-size:0.82rem; text-transform:uppercase; letter-spacing:0.1em; margin-bottom:14px; color:var(--marigold-soft);}
+  footer ul{list-style:none; padding:0; margin:0; display:flex; flex-direction:column; gap:10px;}
+  footer a{font-size:0.9rem; color:rgba(244,238,225,0.75); text-decoration:none;}
+  footer a:hover{color:var(--white);}
+  .foot-bottom{
+    margin-top:50px; padding-top:22px; border-top:1px solid rgba(244,238,225,0.15);
+    display:flex; justify-content:space-between; font-size:0.8rem; color:rgba(244,238,225,0.5); flex-wrap:wrap; gap:10px;
+  }
+
+  /* toast */
+  #toast{
+    position:fixed; bottom:26px; left:50%; transform:translateX(-50%) translateY(120%);
+    background:var(--ink); color:var(--white); padding:14px 24px; border-radius:999px;
+    font-size:0.9rem; font-weight:600; box-shadow:0 12px 30px rgba(0,0,0,0.25); z-index:200;
+    transition:transform .35s ease; display:flex; align-items:center; gap:10px;
+  }
+  #toast.show{transform:translateX(-50%) translateY(0);}
+
+  /* modal */
+  .modal-overlay{
+    position:fixed; inset:0; background:rgba(22,36,31,0.55); backdrop-filter:blur(3px);
+    display:none; align-items:center; justify-content:center; z-index:300; padding:20px;
+  }
+  .modal-overlay.show{display:flex;}
+  .modal{
+    background:var(--white); border-radius:22px; max-width:440px; width:100%; padding:34px;
+    position:relative;
+  }
+  .modal-close{position:absolute; top:18px; right:18px; background:none; border:none; font-size:1.3rem; color:var(--ink); opacity:0.6;}
+  .modal h3{font-size:1.4rem; margin-bottom:6px;}
+  .modal .kit-price{margin:14px 0;}
+  .modal-summary{background:var(--sand-soft); border-radius:12px; padding:16px; font-size:0.88rem; line-height:1.7; margin:16px 0;}
+
+  /* ---------- CRISIS BUTTON ---------- */
+  .crisis-fab{
+    position:fixed; bottom:26px; right:26px; z-index:150;
+    background:#B4402A; color:white; border:none; border-radius:999px;
+    padding:14px 20px; font-weight:700; font-size:0.86rem;
+    display:flex; align-items:center; gap:8px;
+    box-shadow:0 12px 28px rgba(180,64,42,0.4);
+    animation:pulseFab 2.6s infinite;
+  }
+  @keyframes pulseFab{
+    0%,100%{box-shadow:0 12px 28px rgba(180,64,42,0.4);}
+    50%{box-shadow:0 12px 34px rgba(180,64,42,0.65);}
+  }
+  .helpline-item{
+    display:flex; justify-content:space-between; align-items:center;
+    padding:14px 0; border-bottom:1px solid var(--line);
+  }
+  .helpline-item:last-child{border-bottom:none;}
+  .helpline-item strong{display:block; font-family:'Fraunces',serif; font-size:1rem;}
+  .helpline-item span{font-size:0.8rem; color:#5a655f;}
+
+  /* ---------- IMPACT / STATS ---------- */
+  .impact-grid{display:grid; grid-template-columns:repeat(4,1fr); gap:24px;}
+  .impact-card{
+    background:var(--white); border:1px solid var(--line); border-radius:var(--radius);
+    padding:26px; text-align:center;
+  }
+  .impact-card .num{font-family:'Fraunces',serif; font-size:2.1rem; color:var(--teal); font-weight:600;}
+  .impact-card .lbl{font-size:0.82rem; color:#4b5854; margin-top:6px;}
+  .testimonial-row{display:grid; grid-template-columns:repeat(3,1fr); gap:22px; margin-top:44px;}
+  .testimonial-card{
+    background:var(--sand-soft); border:1px solid var(--line); border-radius:var(--radius); padding:26px;
+  }
+  .testimonial-card p{font-family:'Fraunces',serif; font-style:italic; font-size:1.02rem; line-height:1.5; color:var(--ink);}
+  .testimonial-card .who{margin-top:14px; font-size:0.82rem; font-weight:600; color:var(--teal);}
+
+  /* ---------- THERAPIST DIRECTORY ---------- */
+  .therapist-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:22px;}
+  .therapist-card{
+    background:var(--white); border:1px solid var(--line); border-radius:var(--radius); padding:24px;
+    display:flex; flex-direction:column; gap:10px;
+  }
+  .therapist-avatar{
+    width:52px; height:52px; border-radius:50%;
+    background:linear-gradient(135deg, var(--marigold-soft), var(--teal-soft));
+    display:flex; align-items:center; justify-content:center;
+    font-family:'Fraunces',serif; font-weight:600; color:white; font-size:1.1rem;
+  }
+  .therapist-card h4{font-family:'Fraunces',serif; font-size:1.05rem; margin:0;}
+  .therapist-card .spec{font-size:0.8rem; color:var(--teal); font-weight:600;}
+  .therapist-card .meta{font-size:0.8rem; color:#5a655f;}
+  .therapist-langs{display:flex; gap:6px; flex-wrap:wrap;}
+  .lang-pill{font-size:0.7rem; background:var(--sand-soft); padding:3px 9px; border-radius:999px; border:1px solid var(--line);}
+
+  /* ---------- COMMUNITY WALL ---------- */
+  .community-post{
+    background:var(--white); border:1px solid var(--line); border-radius:14px; padding:18px;
+    margin-bottom:14px;
+  }
+  .community-post .cp-head{display:flex; justify-content:space-between; font-size:0.78rem; color:#5a655f; margin-bottom:8px;}
+  .community-post .cp-tag{background:var(--teal); color:white; padding:2px 9px; border-radius:999px; font-size:0.68rem; font-weight:700;}
+  .community-post p{font-size:0.92rem; line-height:1.55; margin:0;}
+  .community-post .cp-support{margin-top:10px; display:flex; gap:14px; align-items:center;}
+  .cp-support button{background:none; border:none; font-size:0.82rem; color:var(--teal); font-weight:600; padding:0;}
+  .community-form{display:flex; flex-direction:column; gap:10px; margin-bottom:26px;}
+
+  /* ---------- STREAK / GAMIFICATION ---------- */
+  .streak-bar{
+    display:flex; align-items:center; justify-content:space-between; gap:20px; flex-wrap:wrap;
+    background:var(--night); color:white; border-radius:22px; padding:26px 30px; margin-bottom:50px;
+  }
+  .streak-left{display:flex; align-items:center; gap:16px;}
+  .streak-flame{font-size:2.2rem;}
+  .streak-num{font-family:'Fraunces',serif; font-size:1.6rem;}
+  .badge-row{display:flex; gap:10px; flex-wrap:wrap;}
+  .badge{
+    padding:8px 14px; border-radius:999px; font-size:0.76rem; font-weight:700;
+    background:rgba(231,185,102,0.15); border:1px solid rgba(231,185,102,0.4); color:var(--marigold-soft);
+  }
+  .badge.locked{opacity:0.35;}
+
+  @media (max-width:900px){
+    .impact-grid{grid-template-columns:1fr 1fr;}
+    .testimonial-row, .therapist-grid{grid-template-columns:1fr;}
+    .nav-links, .nav-cta .btn-outline{display:none;}
+    .menu-toggle{display:block;}
+    .hero-grid, .mv-grid, .split, .foot-grid, .sound-grid{grid-template-columns:1fr;}
+    .kit-grid{grid-template-columns:1fr 1fr;}
+    .tool-panel.active{grid-template-columns:1fr;}
+  }
+  @media (max-width:600px){
+    .kit-grid{grid-template-columns:1fr;}
+    .hero{padding-top:110px;}
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <nav class="nav">
+    <div class="logo"><span class="logo-mark"></span>Theraverse</div>
+    <ul class="nav-links">
+      <li><a href="#tools">Self-Heal</a></li>
+      <li><a href="#kits">Kits</a></li>
+      <li><a href="#marketplace">Psychologists</a></li>
+      <li><a href="#community">Community</a></li>
+      <li><a href="#mission">Mission</a></li>
+      <li><a href="#faq">FAQ</a></li>
+    </ul>
+    <div class="nav-cta">
+      <a href="#" class="btn btn-outline btn-sm" onclick="openModal('signin');return false;">Log in</a>
+      <a href="#" class="btn btn-primary btn-sm" onclick="openModal('signup');return false;">Join free</a>
+      <button class="menu-toggle" onclick="toggleMobileNav()" aria-label="Menu">☰</button>
+    </div>
+  </nav>
+  <ul class="nav-links" id="mobileNav" style="display:none; flex-direction:column; padding:0 28px 20px; gap:16px;"></ul>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="wrap hero-grid">
+    <div>
+      <div class="eyebrow hero-eyebrow">India's mental health home</div>
+      <h1>Balance. Heal. <em>Thrive.</em></h1>
+      <p class="lead">Theraverse brings guided self-healing, therapist-made worksheets, and honest support together — so taking care of your mind feels as normal as taking care of your body.</p>
+      <div class="hero-cta">
+        <a href="#tools" class="btn btn-primary">Start healing — it's free</a>
+        <a href="#kits" class="btn btn-ghost">Browse the 5 kits</a>
+      </div>
+      <div class="hero-stats">
+        <div><div class="num">₹0</div><div class="lbl">App subscription</div></div>
+        <div><div class="num">5</div><div class="lbl">Curated therapy kits</div></div>
+        <div><div class="num">₹599</div><div class="lbl">Flat price, every kit</div></div>
+      </div>
+    </div>
+    <div class="breathe-card">
+      <div class="breathe-title">Try a breath with us</div>
+      <div class="breathe-stage">
+        <div class="breathe-ring"></div>
+        <div class="breathe-ring r2"></div>
+        <div class="breathe-ring r3"></div>
+        <div class="breathe-orb" id="breatheOrb">Press start</div>
+      </div>
+      <div class="breathe-controls">
+        <button class="btn btn-gold btn-sm" id="breatheBtn" onclick="toggleBreathing()">Start breathing</button>
+      </div>
+      <div class="breathe-note" id="breatheNote">One 4-4-6 cycle, right here, before you scroll on.</div>
+    </div>
+  </div>
+</section>
+
+<!-- MISSION / VISION -->
+<section class="band" id="mission">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="eyebrow">Why we exist</div>
+      <h2>A brand built to bridge the gap</h2>
+      <p>Mental healthcare in India is fragmented — expensive therapy on one end, silence and stigma on the other. Theraverse sits in between.</p>
+    </div>
+    <div class="mv-grid">
+      <div class="mv-card">
+        <h3>Our Vision</h3>
+        <p>To become India's biggest mental health support brand — a name every household trusts, the way they trust a family doctor, but for the mind.</p>
+      </div>
+      <div class="mv-card">
+        <h3>Our Mission</h3>
+        <p>We exist to:</p>
+        <ul>
+          <li>Bridge the gap between people and the decision to seek therapy</li>
+          <li>Remove the stigma around talking about mental health, openly and in Indian languages people actually speak</li>
+          <li>Make self-healing tools free and accessible to anyone with a phone</li>
+          <li>Let licensed psychologists earn fairly for the resources they create</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SELF HEAL TOOLS -->
+<section id="tools">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="eyebrow">Free, always</div>
+      <h2>Self-heal tools for everyday moments</h2>
+      <p>No appointment needed. Pick a tool below and use it right now — everything here is free with your Theraverse account.</p>
+    </div>
+
+    <div class="streak-bar">
+      <div class="streak-left">
+        <div class="streak-flame">🔥</div>
+        <div>
+          <div class="streak-num" id="streakNum">0-day streak</div>
+          <div style="font-size:0.8rem; opacity:0.75;">Use any self-heal tool once a day to keep it alive</div>
+        </div>
+      </div>
+      <div class="badge-row" id="badgeRow"></div>
+    </div>
+
+    <div class="tool-tabs">
+      <button class="tab-btn active" data-tab="meditation" onclick="switchTool('meditation')">Meditation Timer</button>
+      <button class="tab-btn" data-tab="journal" onclick="switchTool('journal')">Guided Journaling</button>
+      <button class="tab-btn" data-tab="sound" onclick="switchTool('sound')">Calming Sounds</button>
+      <button class="tab-btn" data-tab="mood" onclick="switchTool('mood')">Mood Tracker</button>
+    </div>
+
+    <div class="tool-panels">
+      <div class="tool-panel active" id="panel-meditation">
+        <div class="tool-copy">
+          <div class="eyebrow">01 · Meditation</div>
+          <h3>A quiet timer, no ads, no noise</h3>
+          <p>Pick a duration and sit with yourself. The timer runs right in your browser — close nothing, download nothing.</p>
+          <div class="timer-select" id="timerChips">
+            <button class="chip active" onclick="setTimer(3,this)">3 min</button>
+            <button class="chip" onclick="setTimer(5,this)">5 min</button>
+            <button class="chip" onclick="setTimer(10,this)">10 min</button>
+            <button class="chip" onclick="setTimer(15,this)">15 min</button>
+          </div>
+        </div>
+        <div class="tool-visual">
+          <div class="timer-display" id="timerDisplay">03:00</div>
+          <div style="display:flex; gap:10px;">
+            <button class="btn btn-primary btn-sm" id="timerStartBtn" onclick="toggleTimer()">Start session</button>
+            <button class="btn btn-ghost btn-sm" onclick="resetTimer()">Reset</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="tool-panel" id="panel-journal">
+        <div class="tool-copy">
+          <div class="eyebrow">02 · Journaling</div>
+          <h3>"What's one thing weighing on you today?"</h3>
+          <p>Write freely below. Your entry saves privately to this session — it's just for you, not for us.</p>
+        </div>
+        <div class="tool-visual" style="align-items:stretch;">
+          <textarea class="journal" id="journalText" placeholder="Start typing... there's no wrong way to do this."></textarea>
+          <div style="display:flex; gap:10px; justify-content:flex-end;">
+            <button class="btn btn-ghost btn-sm" onclick="document.getElementById('journalText').value='';document.getElementById('journalStatus').textContent='';">Clear</button>
+            <button class="btn btn-primary btn-sm" onclick="saveJournal()">Save entry</button>
+          </div>
+          <div class="journal-status" id="journalStatus"></div>
+        </div>
+      </div>
+
+      <div class="tool-panel" id="panel-sound">
+        <div class="tool-copy">
+          <div class="eyebrow">03 · Soundscapes</div>
+          <h3>Background calm for focus or sleep</h3>
+          <p>Tap a soundscape to mark it as playing. Pair it with the meditation timer or your own study session.</p>
+        </div>
+        <div class="tool-visual">
+          <div class="sound-grid">
+            <button class="sound-btn" onclick="toggleSound(this,'Monsoon rain')">🌧️ Monsoon Rain</button>
+            <button class="sound-btn" onclick="toggleSound(this,'Himalayan wind')">🏔️ Himalayan Wind</button>
+            <button class="sound-btn" onclick="toggleSound(this,'Temple bells')">🔔 Temple Bells</button>
+            <button class="sound-btn" onclick="toggleSound(this,'Ocean waves, Goa')">🌊 Ocean Waves</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="tool-panel" id="panel-mood">
+        <div class="tool-copy">
+          <div class="eyebrow">04 · Check-in</div>
+          <h3>How are you, really?</h3>
+          <p>A 5-second check-in helps you notice patterns over time. Tap the face closest to how you feel right now.</p>
+        </div>
+        <div class="tool-visual">
+          <div class="mood-row" id="moodRow">
+            <button class="mood-btn" data-mood="Low">😔</button>
+            <button class="mood-btn" data-mood="Anxious">😟</button>
+            <button class="mood-btn" data-mood="Okay">😐</button>
+            <button class="mood-btn" data-mood="Good">🙂</button>
+            <button class="mood-btn" data-mood="Great">😄</button>
+          </div>
+          <div class="mood-log" id="moodLog">Your check-ins stay private to this session.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- KITS -->
+<section class="band" id="kits">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="eyebrow">Therapist-designed</div>
+      <h2>Five kits, priced for real life</h2>
+      <p>Each kit is a downloadable bundle of worksheets, trackers, and exercises designed by licensed psychologists. One-time price, yours forever — no kit costs more than ₹600.</p>
+    </div>
+
+    <div class="kit-grid" id="kitGrid"></div>
+
+    <div class="sub-strip">
+      <div>
+        <h3>Buy any kit, get the app free for life.</h3>
+        <p>Every self-heal tool, mood tracking, and browsing the worksheet marketplace already costs nothing — and the moment you buy any one of the 5 kits, your app subscription is unlocked free forever too.</p>
+      </div>
+      <div style="text-align:right;">
+        <div class="sub-price">₹0<span>/forever</span></div>
+        <button class="btn btn-gold" style="margin-top:10px;" onclick="openModal('signup')">Create free account</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MARKETPLACE -->
+<section id="marketplace">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="eyebrow">For psychologists & for you</div>
+      <h2>A fair marketplace for real worksheets</h2>
+      <p>Licensed psychologists upload the worksheets they've built in practice. You review them, and pay the psychologist directly for the ones that help.</p>
+    </div>
+
+    <div class="split">
+      <div>
+        <h3 style="font-family:'Fraunces',serif; font-size:1.3rem; margin-bottom:16px;">Worksheets available now</h3>
+        <div class="worksheet-list" id="worksheetList"></div>
+      </div>
+
+      <div class="upload-card">
+        <div class="eyebrow" style="margin-bottom:8px;">Are you a psychologist?</div>
+        <h3 style="font-family:'Fraunces',serif; font-size:1.3rem; margin-bottom:6px;">Upload your worksheet</h3>
+        <p style="font-size:0.88rem; color:#3a4744; margin-bottom:20px;">Submit for review — once approved, it's listed on the marketplace and you get paid whenever someone downloads it.</p>
+        <form id="uploadForm" onsubmit="submitWorksheet(event)">
+          <div class="field">
+            <label for="wsName">Worksheet title</label>
+            <input type="text" id="wsName" placeholder="e.g. Anxiety Thought Record" required>
+          </div>
+          <div class="field">
+            <label for="wsCategory">Category</label>
+            <select id="wsCategory" required>
+              <option value="">Select a category</option>
+              <option>Anxiety</option>
+              <option>Depression</option>
+              <option>Self-Esteem</option>
+              <option>Student Wellness</option>
+              <option>ADHD & Focus</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="wsPrice">Your price (₹)</label>
+            <input type="number" id="wsPrice" placeholder="e.g. 149" min="0" max="600" required>
+          </div>
+          <div class="field">
+            <label for="wsFile">Upload file</label>
+            <input type="file" id="wsFile" accept=".pdf,.doc,.docx">
+          </div>
+          <button type="submit" class="btn btn-primary btn-full">Submit for review</button>
+          <div class="form-msg" id="uploadMsg"></div>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- IMPACT -->
+<section id="impact">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="eyebrow">The bigger picture</div>
+      <h2>Working toward India's biggest mental health brand</h2>
+      <p>Every kit sold and every worksheet reviewed moves us closer to a India where reaching out for help is normal, not brave.</p>
+    </div>
+    <div class="impact-grid">
+      <div class="impact-card"><div class="num" id="statUsers">0</div><div class="lbl">People supported</div></div>
+      <div class="impact-card"><div class="num" id="statPsych">0</div><div class="lbl">Licensed psychologists onboard</div></div>
+      <div class="impact-card"><div class="num" id="statWorksheets">0</div><div class="lbl">Worksheets in the marketplace</div></div>
+      <div class="impact-card"><div class="num" id="statCities">0</div><div class="lbl">Indian cities reached</div></div>
+    </div>
+    <div class="testimonial-row">
+      <div class="testimonial-card"><p>"I finally had language for what I was feeling — the anxiety kit was the first step before I saw a real therapist."</p><div class="who">— Ayesha, 21, Delhi</div></div>
+      <div class="testimonial-card"><p>"Uploading my worksheets on Theraverse means students who could never afford my clinic fee still get my work."</p><div class="who">— Dr. Rohan Mehta, Clinical Psychologist</div></div>
+      <div class="testimonial-card"><p>"The mood tracker made my ADHD son's ups and downs visible to our whole family for the first time."</p><div class="who">— Kavita, parent, Pune</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- THERAPIST DIRECTORY -->
+<section class="band">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="eyebrow">When you're ready for more</div>
+      <h2>Book a licensed therapist</h2>
+      <p>When self-help isn't enough, Theraverse connects you to verified psychologists for a real session — in the language you're most comfortable in.</p>
+    </div>
+    <div class="therapist-grid" id="therapistGrid"></div>
+  </div>
+</section>
+
+<!-- COMMUNITY WALL -->
+<section id="community">
+  <div class="wrap" style="max-width:720px;">
+    <div class="section-head" style="margin-bottom:26px;">
+      <div class="eyebrow">You are not alone</div>
+      <h2>The Anonymous Support Wall</h2>
+      <p>Share what's on your mind with zero judgement — posts here are anonymous. Be kind; someone brave just hit "share".</p>
+    </div>
+    <form class="community-form" onsubmit="postToWall(event)">
+      <textarea class="journal" id="wallText" placeholder="Share something — a struggle, a small win, anything." style="min-height:90px;"></textarea>
+      <div style="display:flex; gap:10px; justify-content:space-between; align-items:center;">
+        <select id="wallTag" style="padding:10px 14px; border-radius:10px; border:1px solid var(--line); font-family:'Work Sans',sans-serif;">
+          <option>Anxiety</option><option>Depression</option><option>Self-Esteem</option><option>Student Life</option><option>ADHD</option><option>Just Venting</option>
+        </select>
+        <button class="btn btn-primary btn-sm" type="submit">Post anonymously</button>
+      </div>
+    </form>
+    <div id="wallList"></div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="band" id="faq">
+  <div class="wrap" style="max-width:820px;">
+    <div class="section-head" style="margin-bottom:20px;">
+      <div class="eyebrow">Good to know</div>
+      <h2>Questions people ask us</h2>
+    </div>
+    <div id="faqList"></div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-band">
+  <div class="wrap">
+    <h2>Your mind deserves the same care you give everything else.</h2>
+    <p>Join free, breathe for sixty seconds, and see where Theraverse takes you.</p>
+    <div class="hero-cta">
+      <button class="btn btn-gold" onclick="openModal('signup')">Join Theraverse free</button>
+      <a href="#kits" class="btn btn-outline" style="border-color:white; color:white;">Explore the kits</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap foot-grid">
+    <div>
+      <div class="foot-logo">Theraverse</div>
+      <p>Balance. Heal. Thrive. India's home for accessible mental health support — built with licensed psychologists, for everyone.</p>
+    </div>
+    <div>
+      <h4>Explore</h4>
+      <ul>
+        <li><a href="#tools">Self-heal tools</a></li>
+        <li><a href="#kits">Therapy kits</a></li>
+        <li><a href="#marketplace">Worksheet marketplace</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Company</h4>
+      <ul>
+        <li><a href="#mission">Our mission</a></li>
+        <li><a href="#" onclick="notify('Careers page coming soon 💛');return false;">Careers</a></li>
+        <li><a href="#" onclick="notify('Our psychologist network page is coming soon.');return false;">For psychologists</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Support</h4>
+      <ul>
+        <li><a href="#faq">FAQs</a></li>
+        <li><a href="#" onclick="openModal('contact');return false;">Contact us</a></li>
+        <li><a href="#" onclick="notify('If this is a crisis, please call iCall: 9152987821.');return false;">Crisis help</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="wrap foot-bottom">
+    <span>© 2026 Theraverse. Made in India, for India.</span>
+    <span>Not a replacement for emergency care. In a crisis, call a helpline.</span>
+  </div>
+</footer>
+
+<button class="crisis-fab" onclick="openCrisisModal()">🆘 Need help now?</button>
+
+<div id="toast"></div>
+
+<!-- MODALS -->
+<div class="modal-overlay" id="modalOverlay">
+  <div class="modal" id="modalBody"></div>
+</div>
+
+<script>
+/* ---------------- DATA ---------------- */
+const kits = [
+  {tag:"Kit 01", name:"Anxiety Therapy Companion Kit", price:599, was:799,
+   desc:"Grounding exercises, worry-log templates and CBT-based thought records for day-to-day anxiety.",
+   includes:["12 worksheets","Grounding exercise cards","4-week worry tracker","Free app subscription"]},
+  {tag:"Kit 02", name:"Emotional Wellness & Depression Support Kit", price:599, was:799,
+   desc:"Mood mapping, behavioural activation planners and gentle routines to support low periods.",
+   includes:["Mood mapping journal","Behavioural activation planner","Self-compassion prompts","Free app subscription"], best:true},
+  {tag:"Kit 03", name:"Self-Esteem & Confidence Kit", price:599, was:799,
+   desc:"Reframe self-talk, track wins, and build confidence with structured, therapist-designed prompts.",
+   includes:["Values worksheet","Confidence-building tracker","Self-talk reframe cards","Free app subscription"]},
+  {tag:"Kit 04", name:"Student Mental Wellness Kit", price:599, was:799,
+   desc:"Exam stress, procrastination and social pressure — tools built for Indian student life.",
+   includes:["Exam-stress toolkit","Study-break planner","Peer pressure worksheet","Free app subscription"]},
+  {tag:"Kit 05", name:"ADHD Organisation & Focus Kit", price:599, was:799,
+   desc:"Time-blocking templates, focus sprints and habit trackers built for ADHD brains.",
+   includes:["Time-blocking templates","Focus sprint tracker","Habit-building system","Free app subscription"]},
+];
+
+const worksheets = [
+  {name:"5-Minute Grounding Worksheet", by:"Dr. Ananya Rao, Clinical Psychologist", price:79},
+  {name:"Thought Record for Overthinkers", by:"Dr. Farah Khan, Counselling Psychologist", price:99},
+  {name:"Self-Esteem Values Map", by:"Dr. Rohan Mehta, Clinical Psychologist", price:129},
+  {name:"ADHD Weekly Focus Planner", by:"Dr. Priya Nair, Psychologist", price:149},
+];
+
+const faqs = [
+  {q:"Is Theraverse free to use?", a:"Yes — the Theraverse app and every self-heal tool (meditation, journaling, sounds, mood tracking) is completely free. You only pay if you choose to buy a specific kit or worksheet."},
+  {q:"How much do the kits cost?", a:"Each of our 5 kits is individually priced between ₹349 and ₹600. There's no subscription — you pay once and keep the kit forever."},
+  {q:"How do psychologists get paid?", a:"When you buy a worksheet from the marketplace, the payment goes directly toward the psychologist who created it. Theraverse takes a small platform fee to keep the lights on."},
+  {q:"Is this a replacement for therapy?", a:"No. Theraverse is a self-help and support companion. If you're in crisis or need clinical care, please reach out to a licensed professional or a helpline immediately."},
+];
+
+/* ---------------- RENDER KITS ---------------- */
+const kitGrid = document.getElementById('kitGrid');
+kits.forEach((k,i)=>{
+  const card = document.createElement('div');
+  card.className = 'kit-card' + (k.best ? ' kit-best' : '');
+  card.innerHTML = `
+    <div class="kit-tag">${k.tag}</div>
+    <h3>${k.name}</h3>
+    <p>${k.desc}</p>
+    <ul class="kit-includes">${k.includes.map(x=>`<li>${x}</li>`).join('')}</ul>
+    <div class="kit-price"><span class="amt">₹${k.price}</span><span class="was">₹${k.was}</span></div>
+    <div class="kit-actions">
+      <button class="btn btn-primary btn-sm" style="flex:1;" onclick="buyKit(${i})">Buy kit</button>
+      <button class="btn btn-ghost btn-sm" onclick="previewKit(${i})">Preview</button>
+    </div>
+  `;
+  kitGrid.appendChild(card);
+});
+
+function buyKit(i){
+  const k = kits[i];
+  openCustomModal(`
+    <button class="modal-close" onclick="closeModal()">✕</button>
+    <div class="eyebrow">${k.tag}</div>
+    <h3>${k.name}</h3>
+    <div class="kit-price"><span class="amt">₹${k.price}</span><span class="was">₹${k.was}</span></div>
+    <div class="modal-summary">${k.desc}<br><br><strong>Includes:</strong> ${k.includes.join(', ')}.</div>
+    <button class="btn btn-primary btn-full" onclick="confirmPurchase('${k.name.replace(/'/g,"")}', ${k.price})">Pay ₹${k.price} & unlock kit</button>
+  `);
+}
+function previewKit(i){
+  const k = kits[i];
+  openCustomModal(`
+    <button class="modal-close" onclick="closeModal()">✕</button>
+    <div class="eyebrow">Preview · ${k.tag}</div>
+    <h3>${k.name}</h3>
+    <div class="modal-summary">${k.desc}<br><br><strong>What's inside:</strong><br>${k.includes.map(x=>`• ${x}`).join('<br>')}</div>
+    <button class="btn btn-gold btn-full" onclick="buyKit(${i})">Buy this kit — ₹${k.price}</button>
+  `);
+}
+function confirmPurchase(name, price){
+  closeModal();
+  notify(`✅ "${name}" unlocked — ₹${price} payment simulated, plus your app subscription is now free for life!`);
+}
+
+/* ---------------- WORKSHEETS ---------------- */
+const wsList = document.getElementById('worksheetList');
+function renderWorksheets(){
+  wsList.innerHTML='';
+  worksheets.forEach((w,i)=>{
+    const row = document.createElement('div');
+    row.className='worksheet-item';
+    row.innerHTML = `
+      <div class="ws-meta"><strong>${w.name}</strong><span>${w.by}</span></div>
+      <div class="ws-buy">
+        <span class="ws-price">₹${w.price}</span>
+        <button class="btn btn-primary btn-sm" onclick="buyWorksheet(${i})">Pay & download</button>
+      </div>`;
+    wsList.appendChild(row);
+  });
+}
+renderWorksheets();
+function buyWorksheet(i){
+  const w = worksheets[i];
+  notify(`✅ ₹${w.price} sent to ${w.by.split(',')[0]} for "${w.name}".`);
+}
+function submitWorksheet(e){
+  e.preventDefault();
+  const name = document.getElementById('wsName').value.trim();
+  const category = document.getElementById('wsCategory').value;
+  const price = Number(document.getElementById('wsPrice').value);
+  const msg = document.getElementById('uploadMsg');
+  if(price > 600){
+    msg.className='form-msg'; msg.style.color='#B4402A';
+    msg.textContent = 'Worksheet price cannot exceed ₹600 as per marketplace policy.';
+    return;
+  }
+  worksheets.unshift({name, by:"You (pending review)", price});
+  renderWorksheets();
+  msg.className='form-msg ok';
+  msg.textContent = `"${name}" submitted for review. We'll notify you once it's approved for the ${category || 'marketplace'}.`;
+  document.getElementById('uploadForm').reset();
+  notify('📤 Worksheet submitted for review!');
+}
+
+/* ---------------- FAQ ---------------- */
+const faqList = document.getElementById('faqList');
+faqs.forEach((f,i)=>{
+  const item = document.createElement('div');
+  item.className='faq-item';
+  item.innerHTML = `
+    <button class="faq-q" onclick="toggleFaq(${i})">${f.q}<span class="plus">+</span></button>
+    <div class="faq-a" id="faqA${i}"><p>${f.a}</p></div>`;
+  faqList.appendChild(item);
+});
+function toggleFaq(i){
+  const el = document.getElementById('faqA'+i);
+  const item = el.closest('.faq-item');
+  const isOpen = item.classList.contains('open');
+  document.querySelectorAll('.faq-item').forEach(x=>{x.classList.remove('open'); x.querySelector('.faq-a').style.maxHeight=null;});
+  if(!isOpen){ item.classList.add('open'); el.style.maxHeight = el.scrollHeight + 'px'; }
+}
+
+/* ---------------- BREATHING ---------------- */
+let breathing = false, breatheTimer;
+function toggleBreathing(){
+  const orb = document.getElementById('breatheOrb');
+  const btn = document.getElementById('breatheBtn');
+  const note = document.getElementById('breatheNote');
+  breathing = !breathing;
+  if(breathing){
+    btn.textContent = 'Stop';
+    let phase = 0;
+    const cycle = ()=>{
+      if(!breathing) return;
+      if(phase % 2 === 0){
+        orb.className = 'breathe-orb inhale';
+        orb.textContent = 'Breathe in';
+        note.textContent = 'Inhale for 4 seconds...';
+        breatheTimer = setTimeout(cycle, 4000);
+      } else {
+        orb.className = 'breathe-orb exhale';
+        orb.textContent = 'Breathe out';
+        note.textContent = 'Exhale slowly for 6 seconds...';
+        breatheTimer = setTimeout(cycle, 6000);
+      }
+      phase++;
+    };
+    cycle();
+  } else {
+    clearTimeout(breatheTimer);
+    btn.textContent = 'Start breathing';
+    orb.className = 'breathe-orb';
+    orb.textContent = 'Press start';
+    note.textContent = 'One 4-4-6 cycle, right here, before you scroll on.';
+  }
+}
+
+/* ---------------- TOOL TABS ---------------- */
+function switchTool(name){
+  document.querySelectorAll('.tab-btn').forEach(b=>b.classList.toggle('active', b.dataset.tab===name));
+  document.querySelectorAll('.tool-panel').forEach(p=>p.classList.toggle('active', p.id==='panel-'+name));
+}
+
+/* ---------------- MEDITATION TIMER ---------------- */
+let timerSeconds = 180, timerInterval = null, timerRunning = false;
+function setTimer(min, el){
+  document.querySelectorAll('#timerChips .chip').forEach(c=>c.classList.remove('active'));
+  el.classList.add('active');
+  timerSeconds = min*60;
+  updateTimerDisplay();
+  clearInterval(timerInterval); timerRunning=false;
+  document.getElementById('timerStartBtn').textContent = 'Start session';
+}
+function updateTimerDisplay(){
+  const m = String(Math.floor(timerSeconds/60)).padStart(2,'0');
+  const s = String(timerSeconds%60).padStart(2,'0');
+  document.getElementById('timerDisplay').textContent = `${m}:${s}`;
+}
+function toggleTimer(){
+  const btn = document.getElementById('timerStartBtn');
+  if(timerRunning){
+    clearInterval(timerInterval); timerRunning=false; btn.textContent='Resume';
+    return;
+  }
+  timerRunning = true; btn.textContent='Pause';
+  timerInterval = setInterval(()=>{
+    if(timerSeconds<=0){
+      clearInterval(timerInterval); timerRunning=false;
+      btn.textContent='Start session';
+      notify('🧘 Session complete. Well done.');
+      return;
+    }
+    timerSeconds--; updateTimerDisplay();
+  },1000);
+}
+function resetTimer(){
+  clearInterval(timerInterval); timerRunning=false;
+  const activeChip = document.querySelector('#timerChips .chip.active');
+  timerSeconds = activeChip ? parseInt(activeChip.textContent)*60 : 180;
+  updateTimerDisplay();
+  document.getElementById('timerStartBtn').textContent = 'Start session';
+}
+updateTimerDisplay();
+
+/* ---------------- JOURNAL ---------------- */
+function saveJournal(){
+  const val = document.getElementById('journalText').value.trim();
+  const status = document.getElementById('journalStatus');
+  if(!val){ status.style.color='#B4402A'; status.textContent='Write something first — even a single line counts.'; return; }
+  status.style.color = 'var(--teal)';
+  status.textContent = `Saved at ${new Date().toLocaleTimeString()}. ${val.split(/\s+/).length} words — proud of you for showing up.`;
+}
+
+/* ---------------- SOUNDS ---------------- */
+function toggleSound(btn,label){
+  const playing = btn.classList.contains('playing');
+  document.querySelectorAll('.sound-btn').forEach(b=>b.classList.remove('playing'));
+  if(!playing){
+    btn.classList.add('playing');
+    notify(`▶ Now playing: ${label}`);
+  } else {
+    notify('⏸ Sound paused');
+  }
+}
+
+/* ---------------- MOOD ---------------- */
+document.querySelectorAll('.mood-btn').forEach(b=>{
+  b.addEventListener('click', ()=>{
+    document.querySelectorAll('.mood-btn').forEach(x=>x.classList.remove('selected'));
+    b.classList.add('selected');
+    document.getElementById('moodLog').textContent = `Logged: feeling "${b.dataset.mood}" — check back tomorrow to spot your pattern.`;
+  });
+});
+
+/* ---------------- MOBILE NAV ---------------- */
+function toggleMobileNav(){
+  const nav = document.getElementById('mobileNav');
+  if(nav.style.display === 'none' || !nav.style.display){
+    nav.innerHTML = document.querySelector('header .nav-links').innerHTML +
+      `<li><a href="#" onclick="openModal('signin');return false;">Log in</a></li>
+       <li><a href="#" onclick="openModal('signup');return false;">Join free</a></li>`;
+    nav.style.display = 'flex';
+  } else {
+    nav.style.display = 'none';
+  }
+}
+document.querySelectorAll('#mobileNav a, .nav-links a').forEach(a=>{
+  a.addEventListener('click', ()=>{ document.getElementById('mobileNav').style.display='none'; });
+});
+
+/* ---------------- MODALS ---------------- */
+function openCustomModal(html){
+  document.getElementById('modalBody').innerHTML = html;
+  document.getElementById('modalOverlay').classList.add('show');
+}
+function closeModal(){ document.getElementById('modalOverlay').classList.remove('show'); }
+document.getElementById('modalOverlay').addEventListener('click', (e)=>{
+  if(e.target.id==='modalOverlay') closeModal();
+});
+
+function openModal(type){
+  if(type==='signup'){
+    openCustomModal(`
+      <button class="modal-close" onclick="closeModal()">✕</button>
+      <h3>Join Theraverse — free</h3>
+      <p style="font-size:0.9rem; color:#3a4744; margin-top:6px;">No subscription, ever. Just a name and email to save your progress.</p>
+      <form onsubmit="return handleSignup(event)">
+        <div class="field" style="margin-top:18px;"><label>Full name</label><input type="text" required placeholder="Your name"></div>
+        <div class="field"><label>Email</label><input type="email" required placeholder="you@example.com"></div>
+        <button class="btn btn-primary btn-full" type="submit">Create free account</button>
+      </form>
+    `);
+  } else if(type==='signin'){
+    openCustomModal(`
+      <button class="modal-close" onclick="closeModal()">✕</button>
+      <h3>Welcome back</h3>
+      <form onsubmit="return handleSignin(event)">
+        <div class="field" style="margin-top:18px;"><label>Email</label><input type="email" required placeholder="you@example.com"></div>
+        <div class="field"><label>Password</label><input type="password" required placeholder="••••••••"></div>
+        <button class="btn btn-primary btn-full" type="submit">Log in</button>
+      </form>
+    `);
+  } else if(type==='contact'){
+    openCustomModal(`
+      <button class="modal-close" onclick="closeModal()">✕</button>
+      <h3>Contact us</h3>
+      <form onsubmit="return handleContact(event)">
+        <div class="field" style="margin-top:18px;"><label>Your message</label><textarea required placeholder="How can we help?"></textarea></div>
+        <button class="btn btn-primary btn-full" type="submit">Send message</button>
+      </form>
+    `);
+  }
+}
+function handleSignup(e){ e.preventDefault(); closeModal(); notify('🎉 Welcome to Theraverse — your free account is ready.'); return false; }
+function handleSignin(e){ e.preventDefault(); closeModal(); notify('👋 Logged in successfully.'); return false; }
+function handleContact(e){ e.preventDefault(); closeModal(); notify('📩 Message sent — we\'ll get back within 24 hours.'); return false; }
+
+/* ---------------- CRISIS SUPPORT ---------------- */
+function openCrisisModal(){
+  openCustomModal(`
+    <button class="modal-close" onclick="closeModal()">✕</button>
+    <div class="eyebrow" style="color:#B4402A;">You matter</div>
+    <h3>Immediate support, right now</h3>
+    <p style="font-size:0.9rem; color:#3a4744; margin-top:6px;">If you're in crisis or thinking about harming yourself, please reach out — these are free, confidential Indian helplines.</p>
+    <div style="margin-top:16px;">
+      <div class="helpline-item"><div><strong>iCall</strong><span>Mon–Sat, 10am–8pm</span></div><span class="ws-price">9152987821</span></div>
+      <div class="helpline-item"><div><strong>Vandrevala Foundation</strong><span>24x7, all days</span></div><span class="ws-price">1860 2662 345</span></div>
+      <div class="helpline-item"><div><strong>KIRAN (Govt. of India)</strong><span>24x7 toll-free</span></div><span class="ws-price">1800-599-0019</span></div>
+      <div class="helpline-item"><div><strong>Emergency</strong><span>Police / Ambulance</span></div><span class="ws-price">112</span></div>
+    </div>
+    <button class="btn btn-primary btn-full" style="margin-top:18px;" onclick="closeModal()">I'll reach out</button>
+  `);
+}
+
+/* ---------------- IMPACT COUNTERS ---------------- */
+function animateCount(id, target, suffix=''){
+  const el = document.getElementById(id);
+  let cur = 0; const step = Math.max(1, Math.round(target/60));
+  const t = setInterval(()=>{
+    cur += step;
+    if(cur >= target){ cur = target; clearInterval(t); }
+    el.textContent = cur.toLocaleString('en-IN') + suffix;
+  }, 20);
+}
+const impactObserver = new IntersectionObserver((entries)=>{
+  entries.forEach(entry=>{
+    if(entry.isIntersecting){
+      animateCount('statUsers', 42000, '+');
+      animateCount('statPsych', 180, '+');
+      animateCount('statWorksheets', 350, '+');
+      animateCount('statCities', 60, '+');
+      impactObserver.disconnect();
+    }
+  });
+}, {threshold:0.4});
+const impactSection = document.getElementById('impact');
+if(impactSection) impactObserver.observe(impactSection);
+
+/* ---------------- THERAPIST DIRECTORY ---------------- */
+const therapists = [
+  {name:"Dr. Ananya Rao", spec:"Anxiety & Stress", exp:"9 yrs experience", langs:["English","Hindi"], fee:800},
+  {name:"Dr. Farah Khan", spec:"Depression & Trauma", exp:"12 yrs experience", langs:["English","Urdu","Hindi"], fee:1000},
+  {name:"Dr. Rohan Mehta", spec:"Self-Esteem & Relationships", exp:"6 yrs experience", langs:["English","Hindi"], fee:700},
+  {name:"Dr. Priya Nair", spec:"ADHD & Focus", exp:"8 yrs experience", langs:["English","Malayalam","Hindi"], fee:850},
+  {name:"Dr. Simran Kaur", spec:"Student Wellness", exp:"5 yrs experience", langs:["English","Punjabi","Hindi"], fee:600},
+  {name:"Dr. Karthik Iyer", spec:"Adult CBT & Anxiety", exp:"10 yrs experience", langs:["English","Tamil"], fee:900},
+];
+const tGrid = document.getElementById('therapistGrid');
+if(tGrid){
+  therapists.forEach((t,i)=>{
+    const initials = t.name.split(' ').slice(1).map(w=>w[0]).join('').slice(0,2);
+    const card = document.createElement('div');
+    card.className='therapist-card';
+    card.innerHTML = `
+      <div class="therapist-avatar">${initials}</div>
+      <h4>${t.name}</h4>
+      <div class="spec">${t.spec}</div>
+      <div class="meta">${t.exp} · ₹${t.fee}/session</div>
+      <div class="therapist-langs">${t.langs.map(l=>`<span class="lang-pill">${l}</span>`).join('')}</div>
+      <button class="btn btn-primary btn-sm btn-full" onclick="bookTherapist(${i})">Book a session</button>
+    `;
+    tGrid.appendChild(card);
+  });
+}
+function bookTherapist(i){
+  const t = therapists[i];
+  openCustomModal(`
+    <button class="modal-close" onclick="closeModal()">✕</button>
+    <h3>Book with ${t.name}</h3>
+    <p style="font-size:0.88rem; color:#3a4744;">${t.spec} · ${t.exp}</p>
+    <form onsubmit="return confirmBooking(event,'${t.name.replace(/'/g,"")}')">
+      <div class="field" style="margin-top:16px;"><label>Preferred date</label><input type="date" required></div>
+      <div class="field"><label>Preferred time slot</label>
+        <select required><option>10:00 AM</option><option>1:00 PM</option><option>4:00 PM</option><option>7:00 PM</option></select>
+      </div>
+      <div class="modal-summary">Session fee: ₹${t.fee}. You'll get a confirmation and a video link.</div>
+      <button class="btn btn-primary btn-full" type="submit">Confirm booking — ₹${t.fee}</button>
+    </form>
+  `);
+}
+function confirmBooking(e,name){ e.preventDefault(); closeModal(); notify(`📅 Session booked with ${name}. Confirmation sent to your email.`); return false; }
+
+/* ---------------- COMMUNITY WALL ---------------- */
+let wallPosts = [
+  {tag:"Student Life", text:"Exam season anxiety is so real this year. Using the breathing tool between mock tests actually helps.", support:14},
+  {tag:"Self-Esteem", text:"Small win: I looked in the mirror today and didn't immediately criticise myself. Progress.", support:31},
+  {tag:"ADHD", text:"Finally tried time-blocking from the kit — got through my to-do list without spiralling. Grateful.", support:9},
+];
+function renderWall(){
+  const list = document.getElementById('wallList');
+  if(!list) return;
+  list.innerHTML = wallPosts.map((p,i)=>`
+    <div class="community-post">
+      <div class="cp-head"><span class="cp-tag">${p.tag}</span><span>Anonymous · just now</span></div>
+      <p>${p.text}</p>
+      <div class="cp-support"><button onclick="supportPost(${i})">🤍 Sending support (${p.support})</button></div>
+    </div>`).join('');
+}
+renderWall();
+function supportPost(i){ wallPosts[i].support++; renderWall(); }
+function postToWall(e){
+  e.preventDefault();
+  const text = document.getElementById('wallText').value.trim();
+  const tag = document.getElementById('wallTag').value;
+  if(!text){ notify('Write something before posting.'); return; }
+  wallPosts.unshift({tag, text, support:0});
+  renderWall();
+  document.getElementById('wallText').value = '';
+  notify('💛 Posted anonymously. Someone will see this and feel less alone.');
+  registerToolUse();
+}
+
+/* ---------------- STREAK / BADGES ---------------- */
+let streakCount = 0;
+const badgeDefs = [
+  {name:"First Step", need:1},
+  {name:"3-Day Streak", need:3},
+  {name:"Week Warrior", need:7},
+  {name:"Community Voice", need:0, manual:'community'},
+];
+let usedToday = false, communityDone = false;
+function renderBadges(){
+  const row = document.getElementById('badgeRow');
+  if(!row) return;
+  row.innerHTML = badgeDefs.map(b=>{
+    let unlocked = b.manual==='community' ? communityDone : streakCount >= b.need;
+    return `<span class="badge ${unlocked?'':'locked'}">${unlocked?'✓ ':'🔒 '}${b.name}</span>`;
+  }).join('');
+}
+function registerToolUse(isCommunity){
+  if(isCommunity){ communityDone = true; renderBadges(); return; }
+  if(!usedToday){
+    usedToday = true;
+    streakCount++;
+    document.getElementById('streakNum').textContent = `${streakCount}-day streak`;
+    renderBadges();
+    if([1,3,7].includes(streakCount)) notify(`🏅 Badge unlocked — day ${streakCount}!`);
+  }
+}
+renderBadges();
+// wire tool-use events into the streak
+const _origToggleTimer = toggleTimer;
+toggleTimer = function(){ _origToggleTimer(); registerToolUse(); };
+const _origSaveJournal = saveJournal;
+saveJournal = function(){ _origSaveJournal(); registerToolUse(); };
+const _origToggleBreathing = toggleBreathing;
+toggleBreathing = function(){ _origToggleBreathing(); registerToolUse(); };
+document.querySelectorAll('.mood-btn').forEach(b=>b.addEventListener('click', ()=>registerToolUse()));
+const _origPostToWall = postToWall;
+postToWall = function(e){ _origPostToWall(e); registerToolUse(true); };
+
+/* ---------------- TOAST ---------------- */
+let toastTimer;
+function notify(msg){
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(()=>t.classList.remove('show'), 3800);
+}
+</script>
+</body>
+</html>
